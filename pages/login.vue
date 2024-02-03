@@ -33,7 +33,7 @@ export default {
                     password: this.password,
                 },
             });
-            this.$router.push('/');
+            window.location.href = '/';
         } catch (error) {
             // If there is an error (login failed), handle it here
             console.error('Login failed:', error);
