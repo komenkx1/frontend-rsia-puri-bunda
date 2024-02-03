@@ -21,6 +21,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@/assets/css/main.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -30,11 +31,21 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
+  // Tailwind CSS configuration
+  tailwindcss: {
+    config: {
+      darkMode: 'class', // Enable dark mode with class
+      defaultMode: 'light', // Set default mode to 'light'
+      plugins: [require('@tailwindcss/forms')],
+    },
+  },
+
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
   ],
+
   auth: {
     strategies: {
       laravelSanctum: {
@@ -43,16 +54,20 @@ export default {
       },
     },
   },
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
+
   axios: {
-    credentials: true
+    credentials: true,
+    baseURL: 'http://localhost:8000'
   },
+
   router: {
     middleware: ['auth']
   },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   }
-
 }

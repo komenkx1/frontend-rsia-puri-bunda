@@ -7,6 +7,14 @@ export const state = () => ({
         {
             title: "Pegawai",
             link: "/pegawai"
+        },
+        {
+            title: "Unit",
+            link: "/unit"
+        },
+        {
+            title: "Jabatan",
+            link: "/jabatan"
         }
     ],
 });
