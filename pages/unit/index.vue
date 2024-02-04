@@ -26,12 +26,14 @@
                     <CInput type="text" :value.sync="form.name" label="Nama Unit" placeholder="Nama Unit"
                         :required="true" />
                     <div class="flex gap-3 justify-end items-center my-3">
-                    <BtnWithIcon color="blue" :loading="submitLoading" type="submit" title="Save Data" icon="HeroiconsPlusIcon" icon-size="sm" add-class="flex sm:flex-none">
-                        Simpan
-                    </BtnWithIcon>
-                    <BtnWithIcon color="gray" @handleClick="toogleForm('', false)" title="Cancel" icon="HeroiconsXIcon" icon-size="sm" add-class="flex sm:flex-none">
-                        Cancel
-                    </BtnWithIcon>
+                        <BtnWithIcon color="blue" :loading="submitLoading" type="submit" title="Save Data"
+                            icon="HeroiconsPlusIcon" icon-size="sm" add-class="flex sm:flex-none">
+                            Simpan
+                        </BtnWithIcon>
+                        <BtnWithIcon color="gray" @handleClick="toogleForm('', false)" title="Cancel" icon="HeroiconsXIcon"
+                            icon-size="sm" add-class="flex sm:flex-none">
+                            Cancel
+                        </BtnWithIcon>
                     </div>
                 </form>
             </div>
@@ -58,9 +60,7 @@ export default {
                 { label: 'Name', field: 'name' },
                 { label: 'Aksi', field: 'aksi' }
             ],
-            formInput: {
-                name: "",
-            },
+
             items: [],
             tableFilter: {
                 sortKey: 'created_at',
@@ -88,6 +88,9 @@ export default {
             if ('id' in this.modalData) {
                 return this.modalData
             } else {
+                this.formInput = {
+                    name: ""
+                }
                 return this.formInput
             }
         }
