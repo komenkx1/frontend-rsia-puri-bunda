@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- table -->
         <DataTable :columns="columns" :items="items" :loading="isLoading" mode="ajax" :ajax-filter="tableFilter"
             :ajax-meta="tableMeta" @setFilter="setFilter" @fetchData="loadData">
             <template #table-action>
@@ -28,6 +27,7 @@
                 <BtnIcon @handleClick="toogleAlert(true, row)" color="red" icon="HeroiconsTrashIcon" />
             </template>
         </DataTable>
+
         <Modal :showing="modalForm" :show-close="true" @close="modalForm = !modalForm">
             <div class="card bg-white shadow p-3">
                 <p class="font-bold">Tambah Pegawai</p>
@@ -35,12 +35,24 @@
                 <form @submit.prevent="saveData">
                     <CInput class="my-2" type="text" :value.sync="form.name" label="Nama Pegawai" placeholder="Nama Pegawai"
                         :required="true" />
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.name">
+                        {{ errorState }}
+                    </small>
                     <CInput class="my-2" type="text" :value.sync="form.username" label="Username Pegawai"
                         placeholder="Username Pegawai" :required="true" />
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.username">
+                        {{ errorState }}
+                    </small>
                     <CInput class="my-2" type="password" :value.sync="form.password" label="Password Pegawai"
                         placeholder="Password Pegawai" :required="'id' in this.modalData ? false : true" />
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.password">
+                        {{ errorState }}
+                    </small>
                     <CInput class="my-2" type="date" :value.sync="form.join_date" label="Tanggal Join Pegawai"
                         placeholder="Password Pegawai" :required="true" />
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.join_date">
+                        {{ errorState }}
+                    </small>
                     <div class="my-2">
                         <label for="unit" class="block mb-2 text-sm font-medium text-gray-900">Unit Pegawai</label>
                         <v-select placeholder="Unit Pegawai" v-model="form.unit" :options="optionsUnit" label="name"
@@ -49,15 +61,22 @@
                                 <input class="vs__search" :required="!form.unit" v-bind="attributes" v-on="events" />
                             </template>
                         </v-select>
+                        <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.unit">
+                            {{ errorState }}
+                        </small>
                     </div>
                     <div class="my-2">
                         <label for="jabatan" class="block mb-2 text-sm font-medium text-gray-900">Jabatan Pegawai</label>
                         <v-select required placeholder="Jabatan Pegawai" v-model="form.jabatan" :options="optionsJabatan"
                             label="name" multiple taggable :pushTags="true">
                             <template #search="{ attributes, events }">
-                                <input class="vs__search" :required="form.jabatan?.length == 0" v-bind="attributes" v-on="events" />
+                                <input class="vs__search" :required="form.jabatan?.length == 0" v-bind="attributes"
+                                    v-on="events" />
                             </template>
                         </v-select>
+                        <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.unit">
+                            {{ errorState }}
+                        </small>
                     </div>
                     <div class="flex gap-3 justify-end items-center my-3">
                         <BtnWithIcon color="blue" :loading="submitLoading" type="submit" title="Save Data"
@@ -91,6 +110,7 @@ export default {
             modalAlert: false,
             modalData: {},
             selectedtest: "",
+            error: [],
             columns: [
                 { label: 'Name', field: 'name' },
                 { label: 'Username', field: 'username' },
@@ -215,6 +235,7 @@ export default {
         },
         toogleForm(mode = 'add', value, dataModal = {}) {
             this.modalData = {}
+            this.error = []
             if (mode == 'edit') {
                 this.modalData = { ...dataModal }
                 this.$set(this.modalData, 'jabatan', [...this.modalData.user_jabatan.map(res => {
@@ -258,7 +279,7 @@ export default {
                 this.loadUnit()
                 this.loadJabatan()
             }).catch(error => {
-                console.log(error)
+                this.error = error.response?.data?.errors ?? []
                 this.submitLoading = false
             })
         },

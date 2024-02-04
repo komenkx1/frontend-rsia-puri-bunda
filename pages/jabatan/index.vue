@@ -5,8 +5,8 @@
             :ajax-meta="tableMeta" @setFilter="setFilter" @fetchData="loadData">
             <template #table-action>
                 <div class="flex">
-                    <BtnWithIcon title="Tambah Jabatan" icon="HeroiconsPlusIcon" icon-size="md" add-class="flex-1 sm:flex-none"
-                        @handleClick="toogleForm('add', true)">
+                    <BtnWithIcon title="Tambah Jabatan" icon="HeroiconsPlusIcon" icon-size="md"
+                        add-class="flex-1 sm:flex-none" @handleClick="toogleForm('add', true)">
                         Tambah Jabatan
                     </BtnWithIcon>
                     <BtnIcon type="button" title="Refresh" color="gray" icon="HeroiconsRefreshIcon" icon-size="md"
@@ -25,6 +25,9 @@
                 <form @submit.prevent="saveData">
                     <CInput type="text" :value.sync="form.name" label="Nama Jabatan" placeholder="Nama Jabatan"
                         :required="true" />
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.name">
+                        {{ errorState }}
+                    </small>
                     <div class="flex gap-3 justify-end items-center my-3">
                         <BtnWithIcon color="blue" :loading="submitLoading" type="submit" title="Save Data"
                             icon="HeroiconsPlusIcon" icon-size="sm" add-class="flex sm:flex-none">
@@ -62,6 +65,7 @@ export default {
             ],
 
             items: [],
+            error: [],
             tableFilter: {
                 sortKey: 'created_at',
                 sortOrder: 'desc',
@@ -131,6 +135,7 @@ export default {
             }
         },
         toogleForm(mode = 'add', value, dataModal = {}) {
+            this.error = []
             this.modalData = {}
             if (mode == 'edit') {
                 this.modalData = { ...dataModal }
@@ -166,6 +171,7 @@ export default {
                 this.loadData()
             }).catch(error => {
                 console.log(error)
+                this.error = error.response?.data?.errors ?? []
                 this.submitLoading = false
             })
         },
