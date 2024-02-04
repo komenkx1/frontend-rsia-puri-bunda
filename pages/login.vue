@@ -4,14 +4,14 @@
         <div class="w-[300px] rounded overflow-hidden shadow-lg">
             <form @submit.prevent="login" class="p-4">
                 <div class="input my-1">
-                    <CInput type="text" label="Username" :value.sync="username" placeholder="Username" :required="false" />
+                    <CInput type="text" label="Username" :value.sync="username" placeholder="Username" :required="true" />
                     <small class="font-bold text-red-600 trasition-all" v-for="errorState in error?.username">
                         {{ errorState }}
                     </small>
                 </div>
                 <div class="input my-1">
                     <CInput type="password" label="Password" :value.sync="password" placeholder="Password"
-                        :required="false" />
+                        :required="true" />
                     <small class="font-bold text-red-600 trasition-all" v-for="errorState in error?.password">
                         {{ errorState }}
                     </small>
