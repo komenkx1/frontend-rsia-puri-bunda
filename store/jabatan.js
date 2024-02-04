@@ -1,11 +1,11 @@
 export const state = () => ({
-    unit: [],
+    jabatan: [],
     isLoading: false
 });
 
 const getters = {
-    unit(state) {
-        return state.unit
+    jabatan(state) {
+        return state.jabatan
     },
     isLoading(state) {
         return state.isLoading
@@ -13,8 +13,8 @@ const getters = {
 }
 
 const mutations = {
-    setunit(state, val) {
-        state.unit = val
+    setjabatan(state, val) {
+        state.jabatan = val
     },
     setLoading(state, val) {
         state.isLoading = val
@@ -25,7 +25,7 @@ const actions = {
     async fetch({ commit }, filter) {
         try {
             commit('setLoading', true)
-            const data = await this.$axios.get('/api/unit', {
+            const data = await this.$axios.get('/api/jabatan', {
                 params: filter
             })
             commit('setLoading', false)
@@ -36,13 +36,13 @@ const actions = {
         }
     },
     async add({ commit }, data) {
-        return await this.$axios.post('/api/unit', data.data)
+        return await this.$axios.post('/api/jabatan', data.data)
     },
     async update({ commit }, data) {
-        return await this.$axios.post('/api/unit/' + data.id, data.data)
+        return await this.$axios.post('/api/jabatan/' + data.id, data.data)
     },
     async delete({ commit }, data) {
-        return await this.$axios.delete('/api/unit/' + data)
+        return await this.$axios.delete('/api/jabatan/' + data)
     },
 }
 

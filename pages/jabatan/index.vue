@@ -5,9 +5,9 @@
             :ajax-meta="tableMeta" @setFilter="setFilter" @fetchData="loadData">
             <template #table-action>
                 <div class="flex">
-                    <BtnWithIcon title="Tambah Unit" icon="HeroiconsPlusIcon" icon-size="md" add-class="flex-1 sm:flex-none"
+                    <BtnWithIcon title="Tambah Jabatan" icon="HeroiconsPlusIcon" icon-size="md" add-class="flex-1 sm:flex-none"
                         @handleClick="toogleForm('add', true)">
-                        Tambah Unit
+                        Tambah Jabatan
                     </BtnWithIcon>
                     <BtnIcon type="button" title="Refresh" color="gray" icon="HeroiconsRefreshIcon" icon-size="md"
                         add-class="ml-2" @handleClick="loadData" />
@@ -20,10 +20,10 @@
         </DataTable>
         <Modal :showing="modalForm" :show-close="true" @close="modalForm = !modalForm">
             <div class="card bg-white shadow p-3">
-                <p class="font-bold">Tambah Unit</p>
+                <p class="font-bold">Tambah Jabatan</p>
                 <hr class="my-3">
                 <form @submit.prevent="saveData">
-                    <CInput type="text" :value.sync="form.name" label="Nama Unit" placeholder="Nama Unit"
+                    <CInput type="text" :value.sync="form.name" label="Nama Jabatan" placeholder="Nama Jabatan"
                         :required="true" />
                     <div class="flex gap-3 justify-end items-center my-3">
                         <BtnWithIcon color="blue" :loading="submitLoading" type="submit" title="Save Data"
@@ -39,8 +39,8 @@
             </div>
         </Modal>
         <ModalAlert :isShow="modalAlert" title="Alert"
-            :description="`Apakah anda yakin ingin menghapus data unit ${modalData.name} ?`" @closeModal="toogleAlert"
-            @onYes="removeUnit" :isLoading="submitLoading" />
+            :description="`Apakah anda yakin ingin menghapus data jabatan ${modalData.name} ?`" @closeModal="toogleAlert"
+            @onYes="removeJabatan" :isLoading="submitLoading" />
     </div>
 </template>
 
@@ -81,7 +81,7 @@ export default {
         this.loadData()
     },
     computed: {
-        ...mapGetters("unit", [
+        ...mapGetters("jabatan", [
             "isLoading",
         ]),
         form() {
@@ -114,7 +114,7 @@ export default {
                 q: this.tableFilter.search
             }
 
-            this.$store.dispatch('unit/fetch', filter).then(res => {
+            this.$store.dispatch('jabatan/fetch', filter).then(res => {
                 this.items = res.data.data.data
                 this.tableMeta = {
                     from: res.data.data.from,
@@ -149,14 +149,14 @@ export default {
             let dispatch = ''
             dataForm.append("name", this.form.name)
             if ("id" in this.modalData) {
-                dispatch = 'unit/update'
+                dispatch = 'jabatan/update'
                 dataForm.append("_method", "PUT")
                 payload = {
                     data: dataForm,
                     id: this.modalData.id
                 }
             } else {
-                dispatch = 'unit/add'
+                dispatch = 'jabatan/add'
                 payload = {
                     data: dataForm
                 }
@@ -169,9 +169,9 @@ export default {
                 this.submitLoading = false
             })
         },
-        removeUnit() {
+        removeJabatan() {
             this.submitLoading = true
-            this.$store.dispatch('unit/delete', this.modalData.id).then(res => {
+            this.$store.dispatch('jabatan/delete', this.modalData.id).then(res => {
                 this.loadData()
                 this.toogleAlert(false, {})
                 this.submitLoading = false
