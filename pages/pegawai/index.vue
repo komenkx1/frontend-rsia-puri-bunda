@@ -13,13 +13,14 @@
                 </div>
             </template>
             <template #jabatan="{ row }">
-                <p v-for="userJabatan in row.user_jabatan">
+                <p v-if="row.user_jabatan.length > 0" v-for="userJabatan in row.user_jabatan">
                     - {{ userJabatan.jabatan.name }}
                 </p>
+                <p v-else>Jabatan Belum Di Tambahkan</p>
             </template>
             <template #unit="{ row }">
                 <p>
-                    {{ row.unit.name }}
+                    {{ row.unit?.name ?? '-' }}
                 </p>
             </template>
             <template #aksi="{ row }">
