@@ -55,7 +55,7 @@
             </div>
             <div class="shadow rounded bg-gray-90  dark:bg-gray-800">
                 <div class="title">
-                    <p class="font-bold px-4 pt-2">Aktifitas Data</p>
+                    <p class="font-bold px-4 pt-2">Aktifitas User</p>
                     <hr class="my-3">
                     <AktifitasTable :columns="columnsTActivity" class="px-4" typeLog="data" />
 
@@ -96,7 +96,6 @@ export default {
     },
     computed: {
         ...mapGetters("dashboard", [
-            "isLoading",
             "totalPerItem"
         ]),
     },

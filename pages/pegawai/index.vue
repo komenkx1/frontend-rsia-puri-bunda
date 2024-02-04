@@ -43,12 +43,21 @@
                         placeholder="Password Pegawai" :required="true" />
                     <div class="my-2">
                         <label for="unit" class="block mb-2 text-sm font-medium text-gray-900">Unit Pegawai</label>
-                        <v-select v-model="form.unit" :options="optionsUnit" label="name" taggable />
+                        <v-select placeholder="Unit Pegawai" v-model="form.unit" :options="optionsUnit" label="name"
+                            taggable>
+                            <template #search="{ attributes, events }">
+                                <input class="vs__search" :required="!form.unit" v-bind="attributes" v-on="events" />
+                            </template>
+                        </v-select>
                     </div>
                     <div class="my-2">
                         <label for="jabatan" class="block mb-2 text-sm font-medium text-gray-900">Jabatan Pegawai</label>
-                        <v-select v-model="form.jabatan" :options="optionsJabatan" label="name" multiple taggable
-                            :pushTags="true" />
+                        <v-select required placeholder="Jabatan Pegawai" v-model="form.jabatan" :options="optionsJabatan"
+                            label="name" multiple taggable :pushTags="true">
+                            <template #search="{ attributes, events }">
+                                <input class="vs__search" :required="form.jabatan?.length == 0" v-bind="attributes" v-on="events" />
+                            </template>
+                        </v-select>
                     </div>
                     <div class="flex gap-3 justify-end items-center my-3">
                         <BtnWithIcon color="blue" :loading="submitLoading" type="submit" title="Save Data"

@@ -213,3 +213,13 @@ input:checked ~ .dot {
    background-color: #b1b1b1;
  }
  
+ .vs__dropdown-toggle {
+  padding: 3px 0 4px 2px !important;
+  background: #f9fafb !important;
+  border-color: #d1d5db!important;
+  border-radius: 8px!important;
+  -webkit-border-radius: 8px!important;
+  -moz-border-radius: 8px!important;
+  -ms-border-radius: 8px!important;
+  -o-border-radius: 8px!important;
+}

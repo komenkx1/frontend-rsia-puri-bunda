@@ -2,19 +2,30 @@ export const state = () => ({
     menu: [
         {
             title: "Dashboard",
-            link: "/"
+            isActive: true,
+            link: "/",
+            icon: "HeroiconsChartPie"
+
         },
         {
             title: "Pegawai",
-            link: "/pegawai"
+            isActive: false,
+            link: "/pegawai",
+            icon: "HeroiconsUserIcon"
         },
         {
             title: "Unit",
-            link: "/unit"
+            isActive: false,
+            link: "/unit",
+            icon: "HeroiconsInformationCircle"
+
         },
         {
             title: "Jabatan",
-            link: "/jabatan"
+            isActive: false,
+            link: "/jabatan",
+            icon: "HeroiconsFolderDownload"
+
         }
     ],
 });
@@ -26,7 +37,14 @@ const getters = {
 }
 
 const mutations = {
-
+    setActive(state, value) {
+        state.menu.forEach(element => {
+            element.isActive = false
+            if (element.link == value) {
+                element.isActive = true
+            }
+        });
+    }
 };
 
 export { getters, mutations }
