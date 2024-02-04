@@ -26,7 +26,7 @@
                 v-model="filter.search"
                 type="text"
                 class="
-                  focus:ring-indigo-500 focus:border-indigo-500
+                  focus:ring-blue-500 focus:border-blue-500
                   w-full
                   flex-1
                   block
@@ -144,10 +144,10 @@
                     :value="1"
                     type="checkbox"
                     class="
-                        focus:ring-indigo-500
+                        focus:ring-blue-500
                         h-4
                         w-4
-                        text-indigo-600
+                        text-blue-600
                         border-gray-300
                         rounded
                         cursor-pointer
@@ -310,7 +310,7 @@
                   "
                   :class="
                     i === filter.curPage
-                      ? 'z-10 bg-indigo-50 dark:bg-gray-900 border-indigo-500 dark:border-gray-700 text-indigo-600 dark:text-gray-300'
+                      ? 'z-10 bg-blue-50 dark:bg-gray-900 border-blue-500 dark:border-gray-700 text-blue-600 dark:text-gray-300'
                       : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                   "
                   @click="setPage(i)"
@@ -335,7 +335,7 @@
                   "
                   :class="
                     i === filter.curPage
-                      ? 'z-10 bg-indigo-50 dark:bg-gray-900 border-indigo-500 dark:border-gray-700 text-indigo-600 dark:text-gray-300'
+                      ? 'z-10 bg-blue-50 dark:bg-gray-900 border-blue-500 dark:border-gray-700 text-blue-600 dark:text-gray-300'
                       : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                   "
                   @click="setPage(i)"
@@ -378,7 +378,7 @@
                   "
                   :class="
                     i === filter.curPage
-                      ? 'z-10 bg-indigo-50 dark:bg-gray-900 border-indigo-500 dark:border-gray-700 text-indigo-600 dark:text-gray-300'
+                      ? 'z-10 bg-blue-50 dark:bg-gray-900 border-blue-500 dark:border-gray-700 text-blue-600 dark:text-gray-300'
                       : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                   "
                   @click="setPage(i)"
@@ -420,7 +420,7 @@
                   "
                   :class="
                     i === filter.curPage
-                      ? 'z-10 bg-indigo-50 dark:bg-gray-900 border-indigo-500 dark:border-gray-700 text-indigo-600 dark:text-gray-300'
+                      ? 'z-10 bg-blue-50 dark:bg-gray-900 border-blue-500 dark:border-gray-700 text-blue-600 dark:text-gray-300'
                       : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                   "
                   @click="setPage(i)"

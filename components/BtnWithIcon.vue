@@ -1,58 +1,52 @@
 <template>
-    <button
-      :type="type"
-      :title="title"
-      :class="className"
-      :disabled="loading || disabled"
-      @click="handleClick"
-    >
-      <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-        <component :is="icon" v-if="!loading" :size="iconSize" />
-        <SpinnerIcon v-else :variant="(color === 'gray') ? 'text-indigo-500 dark:text-indigo-300' : 'text-white'" />
-      </span>
-      <slot />
-    </button>
-  </template>
+  <button :type="type" :title="title" :class="className" :disabled="loading || disabled" @click="handleClick">
+    <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+      <component :is="icon" v-if="!loading" :size="iconSize" />
+      <SpinnerIcon v-else :variant="(color === 'gray') ? 'text-indigo-500 dark:text-indigo-300' : 'text-white'" />
+    </span>
+    <slot />
+  </button>
+</template>
   
-  <script>
-  export default {
-    props: {
-      type: {
-        type: String,
-        default: 'button'
-      },
-      color: {
-        type: String,
-        default: 'gray'
-      },
-      title: {
-        type: String,
-        default: 'Title'
-      },
-      loading: {
-        type: Boolean,
-        default: false
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      icon: {
-        type: String,
-        default: () => null
-      },
-      iconSize: {
-        type: String,
-        default: 'sm'
-      },
-      addClass: {
-        type: String,
-        default: () => null
-      }
+<script>
+export default {
+  props: {
+    type: {
+      type: String,
+      default: 'button'
     },
-    computed: {
-      className () {
-        let dataClass = `
+    color: {
+      type: String,
+      default: 'gray'
+    },
+    title: {
+      type: String,
+      default: 'Title'
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    icon: {
+      type: String,
+      default: () => null
+    },
+    iconSize: {
+      type: String,
+      default: 'sm'
+    },
+    addClass: {
+      type: String,
+      default: () => null
+    }
+  },
+  computed: {
+    className() {
+      let dataClass = `
           group
           relative
           flex
@@ -70,27 +64,27 @@
           focus:ring-2
           focus:ring-offset-2
         `
-        if (this.color === 'gray') {
-          dataClass += `
+      if (this.color === 'gray') {
+        dataClass += `
             border border-gray-300
             dark:border-gray-700
             hover:bg-gray-50
             dark:hover:bg-gray-700
             focus:ring-indigo-500
           `
-          if (this.loading || this.disabled) {
-            dataClass += `
+        if (this.loading || this.disabled) {
+          dataClass += `
               text-gray-500
               cursor-not-allowed
             `
-          } else {
-            dataClass += `
+        } else {
+          dataClass += `
               text-gray-700
               dark:text-gray-300
             `
-          }
-        } else if (this.color === 'light') {
-          dataClass += `
+        }
+      } else if (this.color === 'light') {
+        dataClass += `
             bg-white
             dark:bg-gray-800
             text-gray-700
@@ -101,36 +95,48 @@
             dark:hover:bg-gray-700
             focus:ring-indigo-500
           `
-        } else {
-          dataClass += `
+      } else if (this.color === 'blue') {
+        dataClass += `
+            bg-blue-600
+            dark:bg-gray-800
+            text-white
+            dark:text-gray-300
+            border border-gray-300
+            dark:border-gray-700
+            hover:bg-blue-500
+            dark:hover:bg-gray-700
+            focus:ring-blue-500
+          `
+      } else {
+        dataClass += `
             text-white
             border border-transparent
             focus:ring-${this.color}-500
           `
-          if (this.loading || this.disabled) {
-            dataClass += `
+        if (this.loading || this.disabled) {
+          dataClass += `
               bg-${this.color}-500
               hover:bg-${this.color}-500
               cursor-not-allowed
             `
-          } else {
-            dataClass += `
+        } else {
+          dataClass += `
               bg-${this.color}-600
               hover:bg-${this.color}-700
             `
-          }
         }
-  
-        dataClass += ' ' + this.addClass
-  
-        return dataClass
       }
-    },
-    methods: {
-      handleClick (val) {
-        this.$emit('handleClick', val)
-      }
+
+      dataClass += ' ' + this.addClass
+
+      return dataClass
+    }
+  },
+  methods: {
+    handleClick(val) {
+      this.$emit('handleClick', val)
     }
   }
-  </script>
+}
+</script>
   
