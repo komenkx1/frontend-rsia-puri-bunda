@@ -25,7 +25,7 @@
                 <form @submit.prevent="saveData">
                     <CInput type="text" :value.sync="form.name" label="Nama Jabatan" placeholder="Nama Jabatan"
                         :required="true" />
-                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.name">
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error?.name">
                         {{ errorState }}
                     </small>
                     <div class="flex gap-3 justify-end items-center my-3">
@@ -171,7 +171,7 @@ export default {
                 this.loadData()
             }).catch(error => {
                 console.log(error)
-                this.error = error.response?.data?.errors ?? []
+                this.error = error?.response?.data?.errors ?? []
                 this.submitLoading = false
             })
         },

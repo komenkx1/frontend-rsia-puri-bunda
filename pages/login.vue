@@ -4,12 +4,27 @@
         <div class="w-[300px] rounded overflow-hidden shadow-lg">
             <form @submit.prevent="login" class="p-4">
                 <div class="input my-1">
-                    <CInput type="text" label="Username" :value.sync="username" placeholder="Username" :required="true"/>
+                    <CInput type="text" label="Username" :value.sync="username" placeholder="Username" :required="false" />
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error?.username">
+                        {{ errorState }}
+                    </small>
                 </div>
                 <div class="input my-1">
-                    <CInput type="password" label="Password" :value.sync="password" placeholder="Password" :required="true"/>
+                    <CInput type="password" label="Password" :value.sync="password" placeholder="Password"
+                        :required="false" />
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error?.password">
+                        {{ errorState }}
+                    </small>
                 </div>
-                <button type="submit" class="my-4 bg-blue-600 w-full shadow rounded-md p-2 text-sm text-white font-bold transition-all hover:bg-black">Submit</button>
+                <small v-if="!error?.password && !error?.username && error?.length > 0 " class="font-bold text-red-600 trasition-all">
+                    {{ error }}
+                </small>
+                <button type="submit"
+                    class="my-4 bg-blue-600 w-full shadow flex justify-center rounded-md p-2 text-sm text-white font-bold transition-all hover:bg-black">
+                    <span v-if="!isLoading">Submit</span>
+                    <SpinnerIcon v-else :variant="'text-white'" />
+
+                </button>
             </form>
         </div>
     </div>
@@ -22,25 +37,30 @@ export default {
         return {
             username: '',
             password: '',
+            error: [],
+            isLoading: false,
         };
     },
     methods: {
-    async login() {
-        try {
-            await this.$auth.loginWith('laravelSanctum', {
-                data: {
-                    username: this.username,
-                    password: this.password,
-                },
-            });
-            window.location.href = '/';
-        } catch (error) {
-            // If there is an error (login failed), handle it here
-            console.error('Login failed:', error);
-            return 'Login failed. Please check your credentials.';
-        }
+        async login() {
+            try {
+                this.isLoading = true
+                await this.$auth.loginWith('laravelSanctum', {
+                    data: {
+                        username: this.username,
+                        password: this.password,
+                    },
+                });
+                this.isLoading = false
+                window.location.href = '/';
+            } catch (error) {
+                this.isLoading = false
+                console.error('Login failed:', error);
+                this.error = error?.response.data.errors ?? error?.response.data.message
+                return 'Login failed. Please check your credentials.';
+            }
+        },
     },
-},
 
     components: { CInput }
 }

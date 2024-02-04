@@ -35,22 +35,22 @@
                 <form @submit.prevent="saveData">
                     <CInput class="my-2" type="text" :value.sync="form.name" label="Nama Pegawai" placeholder="Nama Pegawai"
                         :required="true" />
-                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.name">
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error?.name">
                         {{ errorState }}
                     </small>
                     <CInput class="my-2" type="text" :value.sync="form.username" label="Username Pegawai"
                         placeholder="Username Pegawai" :required="true" />
-                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.username">
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error?.username">
                         {{ errorState }}
                     </small>
                     <CInput class="my-2" type="password" :value.sync="form.password" label="Password Pegawai"
                         placeholder="Password Pegawai" :required="'id' in this.modalData ? false : true" />
-                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.password">
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error?.password">
                         {{ errorState }}
                     </small>
                     <CInput class="my-2" type="date" :value.sync="form.join_date" label="Tanggal Join Pegawai"
                         placeholder="Password Pegawai" :required="true" />
-                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.join_date">
+                    <small class="font-bold text-red-600 trasition-all" v-for="errorState in error?.join_date">
                         {{ errorState }}
                     </small>
                     <div class="my-2">
@@ -61,7 +61,7 @@
                                 <input class="vs__search" :required="!form.unit" v-bind="attributes" v-on="events" />
                             </template>
                         </v-select>
-                        <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.unit">
+                        <small class="font-bold text-red-600 trasition-all" v-for="errorState in error?.unit">
                             {{ errorState }}
                         </small>
                     </div>
@@ -74,7 +74,7 @@
                                     v-on="events" />
                             </template>
                         </v-select>
-                        <small class="font-bold text-red-600 trasition-all" v-for="errorState in error.unit">
+                        <small class="font-bold text-red-600 trasition-all" v-for="errorState in error?.unit">
                             {{ errorState }}
                         </small>
                     </div>
@@ -279,7 +279,7 @@ export default {
                 this.loadUnit()
                 this.loadJabatan()
             }).catch(error => {
-                this.error = error.response?.data?.errors ?? []
+                this.error = error?.response?.data?.errors ?? []
                 this.submitLoading = false
             })
         },
